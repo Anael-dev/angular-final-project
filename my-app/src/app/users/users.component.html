@@ -1,0 +1,6 @@
+<input #txt placeholder="search" (keyup)="filterSearch(txt.value)" />
+
+<input type="button" value="add" />
+
+<li *ngFor="let user of filteredArr | async">{{ user.name }}</li>
+<app-user *ngFor="let user of filteredArr | async" [userData]="user"></app-user>

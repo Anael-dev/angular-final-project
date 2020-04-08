@@ -1,0 +1,11 @@
+<div
+  class="user"
+  [style.background-color]="clickedRoute ? 'DarkSalmon' : 'white'"
+  [class.borderGreen]="completed"
+>
+  <a (click)="toggleColor()"> ID:{{ userData.id }} </a>
+
+  <p>{{ userData.name }}</p>
+  {{ completed }}
+  <li *ngFor="let todo of todos | async">{{ todo.title }}</li>
+</div>
