@@ -1,0 +1,6 @@
+.main-container{
+  display: flex;
+}
+.users-container{
+  width: 50%;
+}

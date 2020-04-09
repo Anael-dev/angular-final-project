@@ -1,11 +1,148 @@
 <div
   class="user"
-  [style.background-color]="clickedRoute ? 'DarkSalmon' : 'white'"
+  [style.background-color]="clickedRoute ? '#FFCF99' : 'white'"
   [class.borderGreen]="completed"
 >
-  <a (click)="toggleColor()"> ID:{{ userData.id }} </a>
+  <form #f="ngForm" (ngSubmit)="submitForm(f)">
+    <ul class="form-data">
+      <div class="basic-data">
+        <li>
+          <a
+            [routerLink]="['posts-todos', userData.id]"
+            (click)="toggleColor()"
+          >
+            ID:{{ userData.id }}
+          </a>
+        </li>
+        <li>
+          <label>Name:</label>
+          <input
+            type="text"
+            #fname="ngModel"
+            name="fname"
+            required
+            minlength="2"
+            [(ngModel)]="userData.name"
+          />
+          <div class="form-control-feedback">
+            <p *ngIf="!fname.valid && fname.dirty && fname.errors.required">
+              First name is required
+            </p>
+            <p *ngIf="!fname.valid && fname.dirty && fname.errors.minlength">
+              Name must be at least 2 characters long
+            </p>
+          </div>
+        </li>
+        <li>
+          <label>Email:</label>
+          <input
+            type="email"
+            #email="ngModel"
+            name="email"
+            required
+            [(ngModel)]="userData.email"
+            email
+          />
+          <div class="form-control-feedback">
+            <p *ngIf="!email.valid && email.dirty && email.errors.required">
+              Email address is required
+            </p>
 
-  <p>{{ userData.name }}</p>
-  {{ completed }}
-  <li *ngFor="let todo of todos | async">{{ todo.title }}</li>
+            <p *ngIf="!email.valid && email.dirty && email.errors.email">
+              Email address is not valid
+            </p>
+          </div>
+        </li>
+      </div>
+      <input
+        type="button"
+        value="other data"
+        (mouseover)="dataVisible = true"
+        (click)="dataVisible = false"
+      />
+
+      <div class="other-data" *ngIf="dataVisible">
+        <li>
+          <label>Street:</label>
+          <input
+            type="text"
+            name="street"
+            #street="ngModel"
+            minlength="2"
+            required
+            [(ngModel)]="userData.address.street"
+          />
+          <div class="form-control-feedback">
+            <p *ngIf="!street.valid && street.dirty && street.errors.required">
+              Street name is required
+            </p>
+            <p *ngIf="!street.valid && street.dirty && street.errors.minlength">
+              Street name must be at least 2 characters long
+            </p>
+          </div>
+        </li>
+        <li>
+          <label>City:</label>
+          <input
+            type="text"
+            name="city"
+            minlength="2"
+            #city="ngModel"
+            required
+            [(ngModel)]="userData.address.city"
+          />
+          <div class="form-control-feedback">
+            <p *ngIf="!city.valid && city.dirty && city.errors.required">
+              City name is required
+            </p>
+            <p *ngIf="!city.valid && city.dirty && city.errors.minlength">
+              City must be at least 2 characters long
+            </p>
+          </div>
+        </li>
+        <li>
+          <label>Zip Code:</label>
+          <input
+            type="text"
+            name="zipcode"
+            #zipcode="ngModel"
+            required
+            [(ngModel)]="userData.address.zipcode"
+            minlength="5"
+            maxlength="10"
+          />
+          <div class="form-control-feedback">
+            <p
+              *ngIf="!zipcode.valid && zipcode.dirty && zipcode.errors.required"
+            >
+              Zip code is required
+            </p>
+            <p
+              *ngIf="
+                !zipcode.valid && zipcode.dirty && zipcode.errors.minlength
+              "
+            >
+              Zip code must be at least 5 numbers long
+            </p>
+          </div>
+        </li>
+      </div>
+    </ul>
+    <div class="transform-actions">
+      <input
+        type="submit"
+        value="Update"
+        [disabled]="!f.form.valid"
+        (click)="updateAction = true"
+      />
+      <input
+        type="submit"
+        value="Delete"
+        [disabled]="!f.form.valid"
+        (click)="deleteAction = true"
+      />
+    </div>
+  </form>
+  <!--
+  {{ completed }} -->
 </div>

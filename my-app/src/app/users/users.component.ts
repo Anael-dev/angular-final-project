@@ -3,6 +3,7 @@ import { UtilsService } from '../utils.service';
 import { filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { User } from '../user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -13,7 +14,7 @@ export class UsersComponent implements OnInit {
   usersArr: Observable<User[]>;
   filteredArr: any;
 
-  constructor(private utils: UtilsService) {}
+  constructor(private utils: UtilsService, private router: Router) {}
 
   filterSearch(char: string) {
     let charFilter = char.toLowerCase();
@@ -29,6 +30,9 @@ export class UsersComponent implements OnInit {
       )
     );
     console.log(this.filteredArr);
+  }
+  addUser() {
+    this.router.navigate(['/new-user']);
   }
 
   ngOnInit() {

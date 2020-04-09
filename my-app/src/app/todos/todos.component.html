@@ -1,1 +1,4 @@
-<p>todos works!</p>
+<div>
+  <h2>Todos- User {{ id }}</h2>
+  <app-task *ngFor="let todo of todos | async" [taskData]="todo"></app-task>
+</div>

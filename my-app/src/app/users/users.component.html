@@ -1,6 +1,16 @@
-<input #txt placeholder="search" (keyup)="filterSearch(txt.value)" />
+<div class="main-container">
+  <div class="users-container">
+    <input #txt placeholder="Search" (keyup)="filterSearch(txt.value)" />
+    <input type="button" value="Add" (click)="addUser()" />
+    <br />
+    <!-- <li *ngFor="let user of filteredArr | async">{{ user.name }}</li> -->
+    <app-user
+      *ngFor="let user of filteredArr | async"
+      [userData]="user"
+    ></app-user>
+  </div>
 
-<input type="button" value="add" />
-
-<li *ngFor="let user of filteredArr | async">{{ user.name }}</li>
-<app-user *ngFor="let user of filteredArr | async" [userData]="user"></app-user>
+  <div class="router-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
