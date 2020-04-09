@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-import { map, every } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 export interface User {
   id: number;
@@ -19,7 +19,7 @@ export class UtilsService {
   private _posts = new BehaviorSubject<any>([]);
 
   baseUrl = 'https://jsonplaceholder.typicode.com/';
-  usersData: { users: any[]; todos: any[]; posts: any[] } = {
+  dataStore: { users: any[]; todos: any[]; posts: any[] } = {
     users: [],
     todos: [],
     posts: []
@@ -35,20 +35,54 @@ export class UtilsService {
   loadUsers() {
     this.http.get<any[]>(`${this.baseUrl}users`).subscribe(
       data => {
-        this.usersData.users = data;
-        console.log(this.usersData.users);
-        this._users.next(Object.assign({}, this.usersData).users);
+        this.dataStore.users = data;
+        console.log(this.dataStore.users);
+        this._users.next(Object.assign({}, this.dataStore).users);
       },
       error => console.log('Could not load users.')
     );
+  }
+  removeUser(userId: number) {
+    this.http.delete(`${this.baseUrl}users/${userId}`).subscribe(
+      response => {
+        console.log('utils deleting');
+        this.dataStore.users.forEach((user, index) => {
+          if (user.id === userId) {
+            this.dataStore.users.splice(index, 1);
+          }
+        });
+
+        this._users.next(Object.assign({}, this.dataStore).users);
+      },
+      error => console.log('Could not delete todo.')
+    );
+  }
+  updateUser(userId: number, userData) {
+    this.http
+      .put<User>(`${this.baseUrl}users/${userId}`, JSON.stringify(userData))
+      .subscribe(
+        response => {
+          console.log('utils updating');
+
+          this.dataStore.users.forEach((user, index) => {
+            if (user.id === response.id) {
+              this.dataStore.users[index] = userData;
+              console.log(this.dataStore.users);
+            }
+          });
+
+          this._users.next(Object.assign({}, this.dataStore).users);
+        },
+        error => console.log('Could not update todo.')
+      );
   }
 
   loadTodos() {
     this.http.get<any[]>(`${this.baseUrl}todos`).subscribe(
       data => {
-        this.usersData.todos = data;
-        console.log(this.usersData.todos);
-        this._todos.next(Object.assign({}, this.usersData).todos);
+        this.dataStore.todos = data;
+        console.log(this.dataStore.todos);
+        this._todos.next(Object.assign({}, this.dataStore).todos);
       },
       error => console.log('Could not load users.')
     );
@@ -57,9 +91,9 @@ export class UtilsService {
   loadPosts() {
     this.http.get<any[]>(`${this.baseUrl}posts`).subscribe(
       data => {
-        this.usersData.posts = data;
-        console.log(this.usersData.posts);
-        this._posts.next(Object.assign({}, this.usersData).posts);
+        this.dataStore.posts = data;
+        console.log(this.dataStore.posts);
+        this._posts.next(Object.assign({}, this.dataStore).posts);
       },
       error => console.log('Could not load users.')
     );
@@ -74,7 +108,7 @@ export class UtilsService {
   getTasks(id: number) {
     let allCompleted: boolean;
     const userTasks = this._todos.pipe(
-      map(array => array.filter(todo => todo.userId == id))
+      map(array => array.filter(todo => todo.userId == id).slice(0, 5))
     );
     if (
       userTasks.pipe(

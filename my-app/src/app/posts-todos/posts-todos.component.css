@@ -1,0 +1,9 @@
+.todos{
+height:  10%;}
+.posts{
+flex-basis: 1;}
+
+.posts-todos{
+  display: flex;
+  flex-direction: column;
+}
