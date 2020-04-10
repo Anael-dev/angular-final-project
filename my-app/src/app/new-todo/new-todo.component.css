@@ -1,0 +1,8 @@
+*{
+  padding: 5px;
+  margin: 1px;
+}
+.buttons{
+  display: flex;
+  flex-direction: row-reverse;
+}

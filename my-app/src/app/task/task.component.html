@@ -3,7 +3,12 @@
     <li><label>Title:</label>{{ taskData.title }}</li>
     <div class="completed">
       <li><label>Completed:</label>{{ taskData.completed }}</li>
-      <input type="button" value="Mark Completed" (click)="completeTask()" />
+      <input
+        *ngIf="!taskData.completed"
+        type="button"
+        value="Mark Completed"
+        (click)="completeTask()"
+      />
     </div>
   </ul>
 </div>

@@ -1,1 +1,31 @@
-<p>new-todo works!</p>
+<div>
+  <label>New Todo- User {{ id }}</label>
+  <form #form="ngForm" (ngSubmit)="submitForm(form)">
+    <label>Title:</label
+    ><input
+      type="text"
+      required
+      minlength="2"
+      name="title"
+      #task="ngModel"
+      [(ngModel)]="title"
+    />
+    <div class="form-control-feedback">
+      <p *ngIf="!task.valid && task.dirty && task.errors.required">
+        Title is required
+      </p>
+      <p *ngIf="!task.valid && task.dirty && task.errors.minlength">
+        Task title must be at least 2 characters long
+      </p>
+    </div>
+    <div class="buttons">
+      <input type="submit" value="Cancel" (click)="addAction = false" />
+      <input
+        type="submit"
+        value="Add"
+        (click)="addAction = true"
+        [disabled]="!form.valid"
+      />
+    </div>
+  </form>
+</div>

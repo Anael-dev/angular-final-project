@@ -54,7 +54,7 @@ export class UtilsService {
 
         this._users.next(Object.assign({}, this.dataStore).users);
       },
-      error => console.log('Could not delete todo.')
+      error => console.log('Could not delete user.')
     );
   }
   updateUser(userId: number, userData) {
@@ -76,6 +76,24 @@ export class UtilsService {
         error => console.log('Could not update user.')
       );
   }
+
+  getNextName(currUserId) {
+    const id = this.sum(currUserId, 1);
+    console.log(id);
+    let nextUser;
+    this.dataStore.users.forEach(x => {
+      if (x.id == id) {
+        nextUser = x.name;
+        console.log(nextUser);
+      }
+    });
+    return nextUser ? nextUser : this.dataStore.users[currUserId - 1].name;
+  }
+
+  sum(num1, num2) {
+    return Number(num1) + Number(num2);
+  }
+
   completeTask(taskId, taskData) {
     this.http
       .patch<any>(`${this.baseUrl}todos/${taskId}`, JSON.stringify(taskData))
@@ -103,7 +121,7 @@ export class UtilsService {
         console.log(this.dataStore.todos);
         this._todos.next(Object.assign({}, this.dataStore).todos);
       },
-      error => console.log('Could not load users.')
+      error => console.log('Could not load todos.')
     );
   }
 
@@ -114,7 +132,7 @@ export class UtilsService {
         console.log(this.dataStore.posts);
         this._posts.next(Object.assign({}, this.dataStore).posts);
       },
-      error => console.log('Could not load users.')
+      error => console.log('Could not load posts.')
     );
   }
 

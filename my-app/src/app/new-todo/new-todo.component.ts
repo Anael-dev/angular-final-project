@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UtilsService } from '../utils.service';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-new-todo',
@@ -6,10 +9,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-todo.component.css']
 })
 export class NewTodoComponent implements OnInit {
+  id: number;
+  title = 'hi';
+  addAction: boolean;
 
-  constructor() { }
+  constructor(private utils: UtilsService, private ar: ActivatedRoute) {}
 
-  ngOnInit(): void {
+  submitForm(form) {
+    if (form.valid) {
+    } else {
+    }
   }
-
+  ngOnInit(): void {
+    this.ar.params.subscribe(data => {
+      this.id = data['id'];
+      this.title = this.utils.getNextName(this.id);
+    });
+  }
 }

@@ -1,4 +1,7 @@
 <div>
-  <h2>Todos- User {{ id }}</h2>
+  <div class="header">
+    <label>Todos- User {{ id }}</label>
+    <input type="button" value="Add" (click)="addTask()" />
+  </div>
   <app-task *ngFor="let todo of todos | async" [taskData]="todo"></app-task>
 </div>

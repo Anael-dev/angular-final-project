@@ -27,16 +27,16 @@ export class UserComponent implements OnInit {
         console.log('update action');
         console.log(f.value);
 
-        this.updateAction = false;
         console.log(`from submiting in comp: ${this.userData.name}`);
         this.utils.updateUser(this.userData.id, this.userData);
+        this.updateAction = false;
       }
       if (this.deleteAction) {
         console.log('delete action');
         console.log(f.value);
 
-        this.deleteAction = false;
         this.utils.removeUser(this.userData.id);
+        this.deleteAction = false;
       }
     } else {
       console.log(

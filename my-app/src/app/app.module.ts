@@ -17,18 +17,19 @@ import { NewUserComponent } from './new-user/new-user.component';
 
 const appRoutes: Routes = [
   { path: 'new-user', component: NewUserComponent },
-  { path: 'new-todo', component: NewTodoComponent },
-  { path: 'new-post', component: NewPostComponent },
   {
     path: 'posts-todos/:id',
     component: PostsTodosComponent,
     children: [
       { path: 'todos/:id', component: TodosComponent },
+      { path: 'new-todo/:id', component: NewTodoComponent },
+
       {
         path: 'posts',
         component: PostsComponent,
         outlet: 'posts'
-      }
+      },
+      { path: 'new-post/:id', component: NewPostComponent, outlet: 'posts' }
     ]
   }
 ];
