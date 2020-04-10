@@ -17,7 +17,7 @@ export class TodosComponent implements OnInit {
     this.id = sessionStorage['id'];
     console.log('from todos');
     console.log(this.id);
-    this.todos = this.utils.getTasks(this.id).userTasks;
+    this.todos = this.utils.getTasks(this.id);
 
     console.log(this.todos);
   }

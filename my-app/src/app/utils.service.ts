@@ -35,7 +35,7 @@ export class UtilsService {
   loadUsers() {
     this.http.get<any[]>(`${this.baseUrl}users`).subscribe(
       data => {
-        this.dataStore.users = data;
+        this.dataStore.users = data.slice(0, 5);
         console.log(this.dataStore.users);
         this._users.next(Object.assign({}, this.dataStore).users);
       },
@@ -73,6 +73,25 @@ export class UtilsService {
 
           this._users.next(Object.assign({}, this.dataStore).users);
         },
+        error => console.log('Could not update user.')
+      );
+  }
+  completeTask(taskId, taskData) {
+    this.http
+      .patch<any>(`${this.baseUrl}todos/${taskId}`, JSON.stringify(taskData))
+      .subscribe(
+        response => {
+          console.log('utils completing task' + taskId);
+          console.log(response.id);
+
+          this.dataStore.todos.forEach((task, index) => {
+            if (task.id === response.id) {
+              this.dataStore.todos[index].completed = true;
+              console.log(this.dataStore.todos);
+            }
+          });
+          this._todos.next(Object.assign({}, this.dataStore).todos);
+        },
         error => console.log('Could not update todo.')
       );
   }
@@ -80,7 +99,7 @@ export class UtilsService {
   loadTodos() {
     this.http.get<any[]>(`${this.baseUrl}todos`).subscribe(
       data => {
-        this.dataStore.todos = data;
+        this.dataStore.todos = data.slice(0, 100);
         console.log(this.dataStore.todos);
         this._todos.next(Object.assign({}, this.dataStore).todos);
       },
@@ -106,19 +125,9 @@ export class UtilsService {
   }
 
   getTasks(id: number) {
-    let allCompleted: boolean;
     const userTasks = this._todos.pipe(
       map(array => array.filter(todo => todo.userId == id).slice(0, 5))
     );
-    if (
-      userTasks.pipe(
-        map(array => array.every(task => task.completed == true))
-      )[0]
-    ) {
-      allCompleted = true;
-    } else {
-      allCompleted = false;
-    }
-    return { userTasks: userTasks, allCompleted: allCompleted };
+    return userTasks;
   }
 }

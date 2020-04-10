@@ -1,6 +1,9 @@
-<div>
+<div class="task">
   <ul>
-    <li><label>Title:</label><br />{{ taskData.title }}</li>
-    <li><label>Completed:</label><br />{{ taskData.completed }}</li>
+    <li><label>Title:</label>{{ taskData.title }}</li>
+    <div class="completed">
+      <li><label>Completed:</label>{{ taskData.completed }}</li>
+      <input type="button" value="Mark Completed" (click)="completeTask()" />
+    </div>
   </ul>
 </div>

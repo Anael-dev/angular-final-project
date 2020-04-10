@@ -1,0 +1,14 @@
+.task{
+  border: 1px solid plum;
+  padding: 5px;
+}
+
+label{
+  font-weight: 600;
+  padding: 5px;
+}
+
+.completed{
+  display: flex;
+  justify-content: space-between;
+}

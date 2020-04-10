@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UtilsService } from '../utils.service';
 import { Observable } from 'rxjs';
+import { map, every } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user',
@@ -8,9 +9,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  completed: boolean;
   todos: Observable<any[]>;
-  clickedRoute: boolean = false;
+  completed: Observable<boolean>;
   dataVisible: boolean = false;
   updateAction: boolean = false;
   deleteAction: boolean = false;
@@ -21,9 +21,6 @@ export class UserComponent implements OnInit {
 
   constructor(private utils: UtilsService) {}
 
-  toggleColor() {
-    this.clickedRoute = !this.clickedRoute;
-  }
   submitForm(f) {
     if (f.form.valid) {
       if (this.updateAction) {
@@ -37,6 +34,7 @@ export class UserComponent implements OnInit {
       if (this.deleteAction) {
         console.log('delete action');
         console.log(f.value);
+
         this.deleteAction = false;
         this.utils.removeUser(this.userData.id);
       }
@@ -48,7 +46,12 @@ export class UserComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log(this.userData);
-    this.completed = this.utils.getTasks(this.userData.id).allCompleted;
-    this.todos = this.utils.getTasks(this.userData.id).userTasks;
+    this.todos = this.utils.getTasks(this.userData.id);
+
+    this.completed = this.todos.pipe(
+      map(array => array.every(task => task.completed == true))
+    );
+    console.log(`this.completed`);
+    console.log(this.completed);
   }
 }

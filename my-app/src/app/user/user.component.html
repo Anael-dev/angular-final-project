@@ -1,7 +1,7 @@
 <div
   class="user"
   [style.background-color]="rla.isActive ? '#FFCF99' : 'white'"
-  [class.borderGreen]="completed"
+  [class.borderGreen]="completed | async"
 >
   <form #f="ngForm" (ngSubmit)="submitForm(f)">
     <ul class="form-data">
@@ -11,7 +11,6 @@
             [routerLink]="['posts-todos', userData.id]"
             routerLinkActive
             #rla="routerLinkActive"
-            (click)="toggleColor()"
           >
             ID:{{ userData.id }}
           </a>
