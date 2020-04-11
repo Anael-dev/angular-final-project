@@ -1,7 +1,20 @@
 <div>
   <div class="header">
-    <label>Todos- User {{ id }}</label>
-    <input type="button" value="Add" (click)="addTask()" />
+    <label>{{ dataType }}- User {{ id }}</label>
+    <input type="button" value="Add" (click)="addData()" />
   </div>
-  <app-task *ngFor="let todo of todos | async" [taskData]="todo"></app-task>
+  <div *ngIf="dataType === 'Todos'">
+    <app-task
+      *ngFor="let todo of todos | async"
+      [todos]="true"
+      [data]="todo"
+    ></app-task>
+  </div>
+  <div *ngIf="dataType === 'Posts'">
+    <app-task
+      *ngFor="let post of posts | async"
+      [todos]="false"
+      [data]="post"
+    ></app-task>
+  </div>
 </div>

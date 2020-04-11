@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../utils.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -10,20 +10,64 @@ import { Observable } from 'rxjs';
 })
 export class NewTodoComponent implements OnInit {
   id: number;
-  title = 'hi';
+  dataType: string;
+  title: string = '';
+  body: string = '';
   addAction: boolean;
+  cancelAction: boolean;
 
-  constructor(private utils: UtilsService, private ar: ActivatedRoute) {}
+  constructor(
+    private utils: UtilsService,
+    private ar: ActivatedRoute,
+    private router: Router
+  ) {}
 
   submitForm(form) {
-    if (form.valid) {
-    } else {
+    if (this.dataType === 'Todos') {
+      if (this.addAction) {
+        const jsonTodo = {
+          userId: this.id,
+          title: form.value.title,
+          completed: false
+        };
+        this.utils.addNewTodo(this.id, jsonTodo);
+      }
+      this.router.navigate(
+        [{ outlets: { primary: ['todos', this.dataType, this.id] } }],
+        {
+          relativeTo: this.ar.parent
+        }
+      );
+    }
+
+    if (this.dataType === 'Posts') {
+      if (this.addAction) {
+        const jsonTodo = {
+          userId: this.id,
+          title: form.value.title,
+          body: form.value.body
+        };
+        this.utils.addNewPost(this.id, jsonTodo);
+      }
+
+      this.router.navigate(
+        [{ outlets: { posts: ['todos', this.dataType, this.id] } }],
+        {
+          relativeTo: this.ar.parent
+        }
+      );
     }
   }
+
   ngOnInit(): void {
+    console.log('im in new-todo');
     this.ar.params.subscribe(data => {
       this.id = data['id'];
-      this.title = this.utils.getNextName(this.id);
+      this.dataType = data['type'];
+      console.log(this.dataType);
+      if (this.dataType === 'Todos') {
+        this.title = this.utils.getNextName(this.id);
+      }
     });
   }
 }

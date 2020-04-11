@@ -10,9 +10,6 @@ import { PostsTodosComponent } from './posts-todos/posts-todos.component';
 import { TodosComponent } from './todos/todos.component';
 import { TaskComponent } from './task/task.component';
 import { NewTodoComponent } from './new-todo/new-todo.component';
-import { PostsComponent } from './posts/posts.component';
-import { PostComponent } from './post/post.component';
-import { NewPostComponent } from './new-post/new-post.component';
 import { NewUserComponent } from './new-user/new-user.component';
 
 const appRoutes: Routes = [
@@ -21,15 +18,16 @@ const appRoutes: Routes = [
     path: 'posts-todos/:id',
     component: PostsTodosComponent,
     children: [
-      { path: 'todos/:id', component: TodosComponent },
-      { path: 'new-todo/:id', component: NewTodoComponent },
+      { path: 'todos/:type/:id', component: TodosComponent },
+      { path: 'new-todo/:type/:id', component: NewTodoComponent },
+
+      { path: 'todos/:type/:id', component: TodosComponent, outlet: 'posts' },
 
       {
-        path: 'posts',
-        component: PostsComponent,
+        path: 'new-todo/:type/:id',
+        component: NewTodoComponent,
         outlet: 'posts'
-      },
-      { path: 'new-post/:id', component: NewPostComponent, outlet: 'posts' }
+      }
     ]
   }
 ];
@@ -42,9 +40,6 @@ const appRoutes: Routes = [
     TodosComponent,
     TaskComponent,
     NewTodoComponent,
-    PostsComponent,
-    PostComponent,
-    NewPostComponent,
     NewUserComponent
   ],
   imports: [

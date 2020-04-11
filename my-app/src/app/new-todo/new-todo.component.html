@@ -1,5 +1,7 @@
 <div>
-  <label>New Todo- User {{ id }}</label>
+  <label
+    >New {{ dataType === "Todos" ? "Todo" : "Post" }} - User {{ id }}</label
+  >
   <form #form="ngForm" (ngSubmit)="submitForm(form)">
     <label>Title:</label
     ><input
@@ -18,8 +20,32 @@
         Task title must be at least 2 characters long
       </p>
     </div>
+    <div class="post" *ngIf="dataType === 'Posts'">
+      <label>Body:</label>
+      <input
+        type="text"
+        placeholder="Type your post body"
+        required
+        minlength="2"
+        name="body"
+        #bodyPost="ngModel"
+        [(ngModel)]="body"
+      />
+      <div class="form-control-feedback">
+        <p
+          *ngIf="!bodyPost.valid && bodyPost.dirty && bodyPost.errors.required"
+        >
+          body is required
+        </p>
+        <p
+          *ngIf="!bodyPost.valid && bodyPost.dirty && bodyPost.errors.minlength"
+        >
+          Post body must be at least 2 characters long
+        </p>
+      </div>
+    </div>
     <div class="buttons">
-      <input type="submit" value="Cancel" (click)="addAction = false" />
+      <input type="submit" value="Cancel" (click)="cancelAction = true" />
       <input
         type="submit"
         value="Add"

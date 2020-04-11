@@ -7,7 +7,8 @@ import { UtilsService } from '../utils.service';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent implements OnInit {
-  @Input() taskData: any;
+  @Input() data: any;
+  @Input() todos: boolean;
 
   constructor(private utils: UtilsService) {}
 
@@ -15,7 +16,7 @@ export class TaskComponent implements OnInit {
     let data = {
       completed: true
     };
-    this.utils.completeTask(this.taskData.id, data);
+    this.utils.completeTask(this.data.id, data);
   }
   ngOnInit(): void {}
 }

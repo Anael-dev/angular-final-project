@@ -18,7 +18,14 @@ export class PostsTodosComponent implements OnInit {
       console.log(sessionStorage['id']);
 
       this.router.navigate(
-        [{ outlets: { primary: ['todos', this.id], posts: 'posts' } }],
+        [
+          {
+            outlets: {
+              primary: ['todos', 'Todos', this.id],
+              posts: ['todos', 'Posts', this.id]
+            }
+          }
+        ],
         { relativeTo: this.ar }
       );
     });

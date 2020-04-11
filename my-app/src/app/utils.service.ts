@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ThrowStmt } from '@angular/compiler';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface User {
   id: number;
@@ -78,16 +80,19 @@ export class UtilsService {
   }
 
   getNextName(currUserId) {
-    const id = this.sum(currUserId, 1);
-    console.log(id);
     let nextUser;
-    this.dataStore.users.forEach(x => {
-      if (x.id == id) {
-        nextUser = x.name;
-        console.log(nextUser);
+    this.dataStore.users.forEach((x, index) => {
+      if (x.id == currUserId) {
+        if (this.dataStore.users[index + 1]) {
+          nextUser = this.dataStore.users[index + 1].name;
+          console.log(nextUser);
+        } else {
+          nextUser = this.dataStore.users[currUserId - 1].name;
+        }
       }
     });
-    return nextUser ? nextUser : this.dataStore.users[currUserId - 1].name;
+
+    return nextUser;
   }
 
   sum(num1, num2) {
@@ -113,12 +118,45 @@ export class UtilsService {
         error => console.log('Could not update todo.')
       );
   }
+  addNewTodo(userId, todoData) {
+    this.http
+      .post<any>(`${this.baseUrl}todos`, JSON.stringify(todoData))
+      .subscribe(
+        response => {
+          console.log('adding task of user:' + userId);
+          console.log(response);
+          this.dataStore.todos.push(todoData);
+          console.log(this.dataStore.todos[this.dataStore.todos.length - 1]);
+          this._todos.next(Object.assign({}, this.dataStore).todos);
+        },
+        error => console.log('Could not load new todo.')
+      );
+  }
 
+  addNewPost(userId, postData) {
+    this.http
+      .post<any>(`${this.baseUrl}posts`, JSON.stringify(postData))
+      .subscribe(
+        response => {
+          console.log('adding post of user:' + userId);
+          console.log(response);
+          this.dataStore.posts.push(postData);
+          console.log(this.dataStore.posts[this.dataStore.posts.length - 1]);
+          this._posts.next(Object.assign({}, this.dataStore).posts);
+        },
+        error => console.log('Could not load new todo.')
+      );
+  }
   loadTodos() {
     this.http.get<any[]>(`${this.baseUrl}todos`).subscribe(
       data => {
-        this.dataStore.todos = data.slice(0, 100);
+        data.forEach(x => {
+          if (x.userId <= 5) {
+            this.dataStore.todos.push(x);
+          }
+        });
         console.log(this.dataStore.todos);
+        console.log('filtered todos');
         this._todos.next(Object.assign({}, this.dataStore).todos);
       },
       error => console.log('Could not load todos.')
@@ -142,10 +180,18 @@ export class UtilsService {
     this.loadPosts();
   }
 
+  getPosts(id: number) {
+    const userPosts = this._posts.pipe(
+      map(array => array.filter(post => post.userId == id).slice(6))
+    );
+
+    return userPosts;
+  }
   getTasks(id: number) {
     const userTasks = this._todos.pipe(
-      map(array => array.filter(todo => todo.userId == id).slice(0, 5))
+      map(array => array.filter(todo => todo.userId == id).slice(15))
     );
+
     return userTasks;
   }
 }

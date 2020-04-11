@@ -1,14 +1,17 @@
 <div class="task">
   <ul>
-    <li><label>Title:</label>{{ taskData.title }}</li>
-    <div class="completed">
-      <li><label>Completed:</label>{{ taskData.completed }}</li>
+    <li><label>Title:</label>{{ data.title }}</li>
+    <div class="completed" *ngIf="todos">
+      <li><label>Completed:</label>{{ data.completed }}</li>
       <input
-        *ngIf="!taskData.completed"
+        *ngIf="!data.completed"
         type="button"
         value="Mark Completed"
         (click)="completeTask()"
       />
+    </div>
+    <div class="body" *ngIf="!todos">
+      <li><label>Body:</label>{{ data.body }}</li>
     </div>
   </ul>
 </div>
