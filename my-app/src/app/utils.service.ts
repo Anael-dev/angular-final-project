@@ -37,7 +37,7 @@ export class UtilsService {
   loadUsers() {
     this.http.get<any[]>(`${this.baseUrl}users`).subscribe(
       data => {
-        this.dataStore.users = data.slice(0, 5);
+        this.dataStore.users = data;
         console.log(this.dataStore.users);
         this._users.next(Object.assign({}, this.dataStore).users);
       },
@@ -78,7 +78,27 @@ export class UtilsService {
         error => console.log('Could not update user.')
       );
   }
+  addNewUser(userData) {
+    console.log('hello');
+    this.http
+      .post<any>(`${this.baseUrl}users`, JSON.stringify(userData))
+      .subscribe(
+        response => {
+          console.log('adding new user:');
+          console.log(response);
+          // const data = { ...userData, id: response.id };
+          const data = {
+            ...userData,
+            id: response.id
+          };
 
+          this.dataStore.users.push(data);
+          console.log(this.dataStore.users[this.dataStore.users.length - 1]);
+          this._users.next(Object.assign({}, this.dataStore).users);
+        },
+        error => console.log('Could not load new todo.')
+      );
+  }
   getNextName(currUserId) {
     let nextUser;
     this.dataStore.users.forEach((x, index) => {
@@ -150,11 +170,12 @@ export class UtilsService {
   loadTodos() {
     this.http.get<any[]>(`${this.baseUrl}todos`).subscribe(
       data => {
-        data.forEach(x => {
-          if (x.userId <= 5) {
-            this.dataStore.todos.push(x);
-          }
-        });
+        // data.forEach(x => {
+        //   if (x.userId <= 5) {
+        //     this.dataStore.todos.push(x);
+        //   }
+        // });
+        this.dataStore.todos = data;
         console.log(this.dataStore.todos);
         console.log('filtered todos');
         this._todos.next(Object.assign({}, this.dataStore).todos);
@@ -182,16 +203,17 @@ export class UtilsService {
 
   getPosts(id: number) {
     const userPosts = this._posts.pipe(
-      map(array => array.filter(post => post.userId == id).slice(6))
+      map(array => array.filter(post => post.userId == id))
     );
+    // .slice(6)
 
     return userPosts;
   }
   getTasks(id: number) {
     const userTasks = this._todos.pipe(
-      map(array => array.filter(todo => todo.userId == id).slice(15))
+      map(array => array.filter(todo => todo.userId == id))
     );
-
+    // .slice(15)
     return userTasks;
   }
 }

@@ -70,13 +70,9 @@
             name="street"
             #street="ngModel"
             minlength="2"
-            required
             [(ngModel)]="userData.address.street"
           />
           <div class="form-control-feedback">
-            <p *ngIf="!street.valid && street.dirty && street.errors.required">
-              Street name is required
-            </p>
             <p *ngIf="!street.valid && street.dirty && street.errors.minlength">
               Street name must be at least 2 characters long
             </p>
@@ -89,13 +85,9 @@
             name="city"
             minlength="2"
             #city="ngModel"
-            required
             [(ngModel)]="userData.address.city"
           />
           <div class="form-control-feedback">
-            <p *ngIf="!city.valid && city.dirty && city.errors.required">
-              City name is required
-            </p>
             <p *ngIf="!city.valid && city.dirty && city.errors.minlength">
               City must be at least 2 characters long
             </p>
@@ -107,17 +99,11 @@
             type="text"
             name="zipcode"
             #zipcode="ngModel"
-            required
             [(ngModel)]="userData.address.zipcode"
             minlength="5"
             maxlength="10"
           />
           <div class="form-control-feedback">
-            <p
-              *ngIf="!zipcode.valid && zipcode.dirty && zipcode.errors.required"
-            >
-              Zip code is required
-            </p>
             <p
               *ngIf="
                 !zipcode.valid && zipcode.dirty && zipcode.errors.minlength
@@ -136,12 +122,7 @@
         [disabled]="!f.form.valid"
         (click)="updateAction = true"
       />
-      <input
-        type="submit"
-        value="Delete"
-        [disabled]="!f.form.valid"
-        (click)="deleteAction = true"
-      />
+      <input type="submit" value="Delete" (click)="deleteAction = true" />
     </div>
   </form>
   <!--

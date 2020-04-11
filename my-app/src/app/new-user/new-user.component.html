@@ -1,1 +1,53 @@
-<p>new-user works!</p>
+<label>Add New User</label>
+<form #form="ngForm" (ngSubmit)="submitForm(form)">
+  <ul class="form-data">
+    <li>
+      <label>Name:</label>
+      <input
+        type="text"
+        #name="ngModel"
+        name="name"
+        required
+        minlength="2"
+        [(ngModel)]="userData.name"
+      />
+      <div class="form-control-feedback">
+        <p *ngIf="!name.valid && name.dirty && name.errors.required">
+          First name is required
+        </p>
+        <p *ngIf="!name.valid && name.dirty && name.errors.minlength">
+          Name must be at least 2 characters long
+        </p>
+      </div>
+    </li>
+    <li>
+      <label>Email:</label>
+      <input
+        type="email"
+        #email="ngModel"
+        name="email"
+        required
+        [(ngModel)]="userData.email"
+        email
+      />
+      <div class="form-control-feedback">
+        <p *ngIf="!email.valid && email.dirty && email.errors.required">
+          Email address is required
+        </p>
+
+        <p *ngIf="!email.valid && email.dirty && email.errors.email">
+          Email address is not valid
+        </p>
+      </div>
+    </li>
+  </ul>
+  <div class="transform-actions">
+    <input
+      type="submit"
+      value="Add"
+      [disabled]="!form.valid"
+      (click)="addAction = true"
+    />
+    <input type="submit" value="Cancel" />
+  </div>
+</form>

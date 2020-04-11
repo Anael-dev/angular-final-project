@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UtilsService } from '../utils.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-new-user',
@@ -6,10 +8,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-user.component.css']
 })
 export class NewUserComponent implements OnInit {
+  userData = {
+    name: '',
+    email: '',
+    address: {
+      street: '',
+      city: '',
+      zipcode: ''
+    }
+  };
+  addAction: boolean;
 
-  constructor() { }
+  constructor(private utils: UtilsService, private location: Location) {}
 
-  ngOnInit(): void {
+  submitForm(form) {
+    if (this.addAction) {
+      if (form.valid) {
+        this.utils.addNewUser(this.userData);
+      }
+    }
+
+    this.location.back();
   }
-
+  ngOnInit(): void {}
 }
