@@ -1,9 +1,17 @@
 <div class="main-container">
   <div class="users-container">
-    <input #txt placeholder="Search" (keyup)="filterSearch(txt.value)" />
-    <input type="button" value="Add" (click)="addUser()" />
+    <mat-form-field appearance="legacy" color="accent">
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        placeholder="Search by user name"
+        #txt
+        (keyup)="filterSearch(txt.value)"
+    /></mat-form-field>
+
+    <button mat-mini-fab (click)="addUser()">Add</button>
     <br />
-    <!-- <li *ngFor="let user of filteredArr | async">{{ user.name }}</li> -->
+
     <app-user
       *ngFor="let user of filteredArr | async"
       [userData]="user"

@@ -1,6 +1,18 @@
-.main-container{
+.main-container {
   display: flex;
+  margin-left: 2%;
 }
-.users-container{
-  width: 50%;
+.users-container {
+  width: 40vw;
+  padding: 2%;
+}
+
+.mat-form-field {
+  font-family: "Baloo Paaji 2", cursive;
+}
+
+button {
+  font-family: "Share Tech", sans-serif;
+  font-weight: 600;
+  font-size: 15px;
 }

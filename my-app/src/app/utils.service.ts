@@ -89,7 +89,7 @@ export class UtilsService {
           // const data = { ...userData, id: response.id };
           const data = {
             ...userData,
-            id: response.id
+            id: this.dataStore.users.length + 1
           };
 
           this.dataStore.users.push(data);
@@ -125,10 +125,11 @@ export class UtilsService {
       .subscribe(
         response => {
           console.log('utils completing task' + taskId);
-          console.log(response.id);
+          // console.log(response.id);
 
           this.dataStore.todos.forEach((task, index) => {
-            if (task.id === response.id) {
+            if (task.id === taskId) {
+              //response.id
               this.dataStore.todos[index].completed = true;
               console.log(this.dataStore.todos);
             }
@@ -145,7 +146,11 @@ export class UtilsService {
         response => {
           console.log('adding task of user:' + userId);
           console.log(response);
-          this.dataStore.todos.push(todoData);
+          const shapedData = {
+            ...todoData,
+            id: this.dataStore.todos.length + 1
+          }; //id:resonse.id
+          this.dataStore.todos.push(shapedData);
           console.log(this.dataStore.todos[this.dataStore.todos.length - 1]);
           this._todos.next(Object.assign({}, this.dataStore).todos);
         },
@@ -209,6 +214,7 @@ export class UtilsService {
 
     return userPosts;
   }
+
   getTasks(id: number) {
     const userTasks = this._todos.pipe(
       map(array => array.filter(todo => todo.userId == id))

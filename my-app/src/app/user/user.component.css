@@ -1,14 +1,51 @@
-.user{
-  border: 3px solid red;
-  padding: 5px;
-  margin: 5px;
-}
-.borderGreen{
-border: 3px solid green;
+.borderGreen {
+  border: 3px solid green;
 }
 
-.transform-actions{
+/* .transform-actions {
   display: flex;
   flex-direction: row-reverse;
+} */
+
+.basic-data {
+  color: rebeccapurple;
+  display: flex;
+  flex-direction: column;
+}
+a:link {
+  text-decoration: none;
 }
 
+a:visited {
+  text-decoration: none;
+}
+.mat-form-field {
+  font-size: 16px;
+  font-family: "Baloo Paaji 2", cursive;
+  /* padding: 5px; */
+}
+.mat-error {
+  font-family: "Baloo Paaji 2", cursive;
+}
+.mat-card {
+  background-image: linear-gradient(to right bottom, #fff, #f1d8f5);
+  border-radius: 5%;
+  margin-right: 2%;
+  margin-bottom: 3%;
+  border: 2px solid red;
+}
+.selectedColor {
+  background-image: linear-gradient(
+    to right bottom,
+    hsla(0, 42%, 90%, 0.3),
+    hsla(0, 94%, 79%, 0.719)
+  );
+  background-size: cover;
+}
+
+button {
+  font-family: "Share Tech", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  border: 0.4px solid rgb(138, 128, 137);
+}

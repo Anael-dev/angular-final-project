@@ -11,6 +11,8 @@ import { TodosComponent } from './todos/todos.component';
 import { TaskComponent } from './task/task.component';
 import { NewTodoComponent } from './new-todo/new-todo.component';
 import { NewUserComponent } from './new-user/new-user.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MyMaterialModule } from './material/material.module';
 
 const appRoutes: Routes = [
   { path: 'new-user', component: NewUserComponent },
@@ -46,7 +48,9 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    BrowserAnimationsModule,
+    MyMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

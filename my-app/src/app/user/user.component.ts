@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UtilsService } from '../utils.service';
 import { Observable } from 'rxjs';
 import { map, every } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user',
@@ -19,7 +21,7 @@ export class UserComponent implements OnInit {
 
   @Input() userData: any;
 
-  constructor(private utils: UtilsService) {}
+  constructor(private utils: UtilsService, private router: Router) {}
 
   submitForm(f) {
     if (f.form.valid) {
