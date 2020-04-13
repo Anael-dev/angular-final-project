@@ -22,7 +22,7 @@ a:visited {
 .mat-form-field {
   font-size: 16px;
   font-family: "Baloo Paaji 2", cursive;
-  /* padding: 5px; */
+  padding: 5px;
 }
 .mat-error {
   font-family: "Baloo Paaji 2", cursive;
@@ -33,7 +33,9 @@ a:visited {
   margin-right: 2%;
   margin-bottom: 3%;
   border: 2px solid red;
+  max-width: 300px;
 }
+
 .selectedColor {
   background-image: linear-gradient(
     to right bottom,
@@ -48,4 +50,9 @@ button {
   font-weight: 600;
   font-size: 16px;
   border: 0.4px solid rgb(138, 128, 137);
+}
+
+.mat-card-actions {
+  display: flex;
+  justify-content: space-between;
 }
