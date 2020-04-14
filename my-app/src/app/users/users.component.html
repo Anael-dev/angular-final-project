@@ -1,15 +1,29 @@
 <div class="main-container">
   <div class="users-container">
-    <mat-form-field appearance="legacy" color="accent">
-      <mat-label>Search</mat-label>
-      <input
-        matInput
-        placeholder="Search by user name"
-        #txt
-        (keyup)="filterSearch(txt.value)"
-    /></mat-form-field>
+    <div class="header">
+      <mat-form-field appearance="legacy" color="accent">
+        <mat-label>Search</mat-label>
+        <input
+          matInput
+          placeholder="Search by user name"
+          #txt
+          (keyup)="filterSearch(txt.value)"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+          <mat-option
+            *ngFor="let user of filteredArr | async"
+            [value]="user.name"
+          >
+            {{ user.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
 
-    <button mat-mini-fab (click)="addUser()">Add</button>
+      <div class="buttonAdd">
+        <button mat-mini-fab color="primary" (click)="addUser()">Add</button>
+      </div>
+    </div>
     <br />
 
     <app-user

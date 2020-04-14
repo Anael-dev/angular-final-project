@@ -1,7 +1,12 @@
 <div>
   <div class="header">
-    <label>{{ dataType }}- User {{ id }}</label>
-    <input type="button" value="Add" (click)="addData()" />
+    <mat-toolbar>
+      {{ dataType }}- User {{ id }}
+      <button mat-flat-button color="primary" (click)="addData()">
+        <mat-icon>add</mat-icon>
+        <label>Add</label>
+      </button>
+    </mat-toolbar>
   </div>
   <div *ngIf="dataType === 'Todos'">
     <app-task

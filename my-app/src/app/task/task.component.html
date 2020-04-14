@@ -1,17 +1,27 @@
-<div class="task">
-  <ul>
-    <li><label>Title:</label>{{ data.title }}</li>
-    <div class="completed" *ngIf="todos">
-      <li><label>Completed:</label>{{ data.completed }}</li>
-      <input
-        *ngIf="!data.completed"
-        type="button"
-        value="Mark Completed"
-        (click)="completeTask()"
-      />
-    </div>
-    <div class="body" *ngIf="!todos">
-      <li><label>Body:</label>{{ data.body }}</li>
-    </div>
-  </ul>
-</div>
+<mat-card>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item><label>Title:</label>{{ data.title }}</mat-list-item>
+      <mat-divider></mat-divider>
+      <div class="completed" *ngIf="todos">
+        <mat-list-item
+          ><label>Completed:</label>{{ data.completed }}</mat-list-item
+        >
+        <button
+          mat-button
+          color="accent"
+          *ngIf="!data.completed"
+          (click)="completeTask()"
+        >
+          <mat-icon>check</mat-icon>Completed
+        </button>
+      </div>
+      <div class="body" *ngIf="!todos">
+        <mat-list-item
+          ><label>Body:</label>
+          <p>{{ data.body }}</p></mat-list-item
+        >
+      </div>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

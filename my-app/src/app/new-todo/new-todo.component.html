@@ -1,57 +1,78 @@
-<div>
-  <label
-    >New {{ dataType === "Todos" ? "Todo" : "Post" }} - User {{ id }}</label
-  >
-  <form #form="ngForm" (ngSubmit)="submitForm(form)">
-    <label>Title:</label
-    ><input
-      type="text"
-      required
-      minlength="2"
-      name="title"
-      #task="ngModel"
-      [(ngModel)]="title"
-    />
-    <div class="form-control-feedback">
-      <p *ngIf="!task.valid && task.dirty && task.errors.required">
-        Title is required
-      </p>
-      <p *ngIf="!task.valid && task.dirty && task.errors.minlength">
-        Task title must be at least 2 characters long
-      </p>
-    </div>
-    <div class="post" *ngIf="dataType === 'Posts'">
-      <label>Body:</label>
+<div class="container">
+  <mat-toolbar>
+    <span
+      >New {{ dataType === "Todos" ? "Todo" : "Post" }} - User {{ id }}</span
+    >
+    <mat-icon *ngIf="dataType === 'Todos'">assignment</mat-icon>
+    <mat-icon *ngIf="dataType === 'Posts'">comment</mat-icon>
+  </mat-toolbar>
+  <form #form="ngForm" autocomplete="off" (ngSubmit)="submitForm(form)">
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Title:</mat-label>
       <input
         type="text"
-        placeholder="Type your post body"
+        matInput
+        placeholder="Title"
         required
         minlength="2"
-        name="body"
-        #bodyPost="ngModel"
-        [(ngModel)]="body"
+        name="title"
+        #task="ngModel"
+        [(ngModel)]="title"
       />
-      <div class="form-control-feedback">
-        <p
+      <mat-hint align="end">Min 2 characters</mat-hint>
+      <mat-error *ngIf="!task.valid && task.dirty && task.errors.required">
+        Title is required
+      </mat-error>
+      <mat-error *ngIf="!task.valid && task.dirty && task.errors.minlength">
+        Title must be at least 2 characters long
+      </mat-error>
+    </mat-form-field>
+
+    <div class="post" *ngIf="dataType === 'Posts'">
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Body:</mat-label>
+        <input
+          type="text"
+          matInput
+          placeholder="Type your post body"
+          required
+          minlength="2"
+          name="body"
+          #bodyPost="ngModel"
+          [(ngModel)]="body"
+        />
+        <mat-error
           *ngIf="!bodyPost.valid && bodyPost.dirty && bodyPost.errors.required"
         >
           body is required
-        </p>
-        <p
+        </mat-error>
+        <mat-error
           *ngIf="!bodyPost.valid && bodyPost.dirty && bodyPost.errors.minlength"
         >
           Post body must be at least 2 characters long
-        </p>
-      </div>
+        </mat-error>
+      </mat-form-field>
     </div>
     <div class="buttons">
-      <input type="submit" value="Cancel" (click)="cancelAction = true" />
-      <input
+      <button
+        mat-button
+        align="end"
+        color="accent"
         type="submit"
-        value="Add"
+        (click)="cancelAction = true"
+      >
+        Cancel
+      </button>
+      <button
+        mat-button
+        align="end"
+        color="accent"
+        type="submit"
         (click)="addAction = true"
         [disabled]="!form.valid"
-      />
+      >
+        Add
+      </button>
     </div>
   </form>
 </div>

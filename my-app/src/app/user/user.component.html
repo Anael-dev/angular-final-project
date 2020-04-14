@@ -2,6 +2,7 @@
   class="login-card"
   [class.selectedColor]="rla.isActive"
   [class.borderGreen]="completed | async"
+  [class.borderRed]="!(completed | async)"
 >
   <mat-card-header>
     <mat-icon>face</mat-icon>

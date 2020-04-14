@@ -1,9 +1,14 @@
-<label>Add New User</label>
-<form #form="ngForm" (ngSubmit)="submitForm(form)">
-  <ul class="form-data">
-    <li>
-      <label>Name:</label>
+<mat-toolbar>
+  <span>Add New User</span>
+  <mat-icon>person_add </mat-icon>
+</mat-toolbar>
+
+<form #form="ngForm" autocomplete="off" (ngSubmit)="submitForm(form)">
+  <div class="wrapper">
+    <mat-form-field color="accent" appearance="legacy">
+      <mat-label>Name:</mat-label>
       <input
+        matInput
         type="text"
         #name="ngModel"
         name="name"
@@ -11,18 +16,18 @@
         minlength="2"
         [(ngModel)]="userData.name"
       />
-      <div class="form-control-feedback">
-        <p *ngIf="!name.valid && name.dirty && name.errors.required">
-          First name is required
-        </p>
-        <p *ngIf="!name.valid && name.dirty && name.errors.minlength">
-          Name must be at least 2 characters long
-        </p>
-      </div>
-    </li>
-    <li>
-      <label>Email:</label>
+      <mat-error *ngIf="!name.valid && name.dirty && name.errors.required">
+        First name is required
+      </mat-error>
+      <mat-error *ngIf="!name.valid && name.dirty && name.errors.minlength">
+        Name must be at least 2 characters long
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="accent" appearance="legacy">
+      <mat-label>Email:</mat-label>
       <input
+        matInput
         type="email"
         #email="ngModel"
         name="email"
@@ -30,24 +35,24 @@
         [(ngModel)]="userData.email"
         email
       />
-      <div class="form-control-feedback">
-        <p *ngIf="!email.valid && email.dirty && email.errors.required">
-          Email address is required
-        </p>
-
-        <p *ngIf="!email.valid && email.dirty && email.errors.email">
-          Email address is not valid
-        </p>
-      </div>
-    </li>
-  </ul>
-  <div class="transform-actions">
-    <input
+      <mat-error *ngIf="!email.valid && email.dirty && email.errors.required">
+        Email address is required
+      </mat-error>
+      <mat-error *ngIf="!email.valid && email.dirty && email.errors.email">
+        Email address is not valid
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="buttons">
+    <button
+      color="accent"
+      mat-button
       type="submit"
-      value="Add"
       [disabled]="!form.valid"
       (click)="addAction = true"
-    />
-    <input type="submit" value="Cancel" />
+    >
+      Add
+    </button>
+    <button color="accent" mat-button type="submit">Cancel</button>
   </div>
 </form>
