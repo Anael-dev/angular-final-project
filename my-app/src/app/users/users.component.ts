@@ -13,10 +13,11 @@ import { Router } from '@angular/router';
 export class UsersComponent implements OnInit {
   usersArr: Observable<User[]>;
   filteredArr: any;
-
+  searchType: boolean = false;
   constructor(private utils: UtilsService, private router: Router) {}
 
   filterSearch(char: string) {
+    this.searchType = true;
     let charFilter = char.toLowerCase();
 
     if (!charFilter) {

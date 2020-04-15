@@ -13,6 +13,10 @@ import { NewTodoComponent } from './new-todo/new-todo.component';
 import { NewUserComponent } from './new-user/new-user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MyMaterialModule } from './material/material.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { NewPostComponent } from './new-post/new-post.component';
+import { PostsComponent } from './posts/posts.component';
+import { PostComponent } from './post/post.component';
 
 const appRoutes: Routes = [
   { path: 'new-user', component: NewUserComponent },
@@ -20,16 +24,10 @@ const appRoutes: Routes = [
     path: 'posts-todos/:id',
     component: PostsTodosComponent,
     children: [
-      { path: 'todos/:type/:id', component: TodosComponent },
-      { path: 'new-todo/:type/:id', component: NewTodoComponent },
-
-      { path: 'todos/:type/:id', component: TodosComponent, outlet: 'posts' },
-
-      {
-        path: 'new-todo/:type/:id',
-        component: NewTodoComponent,
-        outlet: 'posts'
-      }
+      { path: 'todos/:id', component: TodosComponent },
+      { path: 'posts/:id', component: PostsComponent, outlet: 'posts' },
+      { path: 'new-todo/:id', component: NewTodoComponent },
+      { path: 'new-post/:id', component: NewPostComponent, outlet: 'posts' }
     ]
   }
 ];
@@ -42,7 +40,10 @@ const appRoutes: Routes = [
     TodosComponent,
     TaskComponent,
     NewTodoComponent,
-    NewUserComponent
+    NewUserComponent,
+    NewPostComponent,
+    PostsComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +51,8 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule,
-    MyMaterialModule
+    MyMaterialModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

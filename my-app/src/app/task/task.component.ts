@@ -8,7 +8,6 @@ import { UtilsService } from '../utils.service';
 })
 export class TaskComponent implements OnInit {
   @Input() data: any;
-  @Input() todos: boolean;
 
   constructor(private utils: UtilsService) {}
 

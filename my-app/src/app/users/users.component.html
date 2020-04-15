@@ -25,7 +25,16 @@
       </div>
     </div>
     <br />
-
+    <p
+      class="noMatch"
+      *ngIf="searchType && (filteredArr | async)?.length === 0"
+    >
+      <span>
+        There are no users that match your search.. <br />
+        but you always can create one</span
+      >
+      <mat-icon>emoji_objects</mat-icon>
+    </p>
     <app-user
       *ngFor="let user of filteredArr | async"
       [userData]="user"

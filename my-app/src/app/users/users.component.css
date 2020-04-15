@@ -39,3 +39,12 @@ button {
   display: flex;
   justify-content: space-between;
 }
+.noMatch {
+  position: relative;
+}
+
+.mat-icon {
+  font-size: 30px;
+  position: absolute;
+  top: 23px;
+}

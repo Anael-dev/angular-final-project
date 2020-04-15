@@ -1,7 +1,7 @@
 <div class="container">
   <mat-toolbar>
-    <span>Todo - User {{ id }}</span>
-    <mat-icon>assignment</mat-icon>
+    <span>New Post - User {{ id }}</span>
+    <mat-icon>comment</mat-icon>
   </mat-toolbar>
   <form #form="ngForm" autocomplete="off" (ngSubmit)="submitForm(form)">
     <mat-form-field appearance="outline" color="accent">
@@ -22,6 +22,30 @@
       </mat-error>
       <mat-error *ngIf="!task.valid && task.dirty && task.errors.minlength">
         Title must be at least 2 characters long
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Body:</mat-label>
+      <input
+        type="text"
+        matInput
+        placeholder="Type your post body"
+        required
+        minlength="2"
+        name="body"
+        #bodyPost="ngModel"
+        [(ngModel)]="body"
+      />
+      <mat-error
+        *ngIf="!bodyPost.valid && bodyPost.dirty && bodyPost.errors.required"
+      >
+        body is required
+      </mat-error>
+      <mat-error
+        *ngIf="!bodyPost.valid && bodyPost.dirty && bodyPost.errors.minlength"
+      >
+        Post body must be at least 2 characters long
       </mat-error>
     </mat-form-field>
     <div class="buttons">

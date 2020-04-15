@@ -8,7 +8,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class AppComponent implements OnInit {
   title = 'my-app';
-  finishSpiner: boolean = false;
   constructor(private spinner: NgxSpinnerService) {}
 
   ngOnInit() {
@@ -17,7 +16,6 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       /** spinner ends after 1 second */
       this.spinner.hide();
-      this.finishSpiner = true;
     }, 900);
   }
 }

@@ -4,11 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-new-todo',
-  templateUrl: './new-todo.component.html',
-  styleUrls: ['./new-todo.component.css']
+  selector: 'app-new-post',
+  templateUrl: './new-post.component.html',
+  styleUrls: ['./new-post.component.css']
 })
-export class NewTodoComponent implements OnInit {
+export class NewPostComponent implements OnInit {
   id: number;
   title: string = '';
   body: string = '';
@@ -26,20 +26,18 @@ export class NewTodoComponent implements OnInit {
       const jsonTodo = {
         userId: this.id,
         title: form.value.title,
-        completed: false
+        body: form.value.body
       };
-      this.utils.addNewTodo(this.id, jsonTodo);
+      this.utils.addNewPost(this.id, jsonTodo);
     }
-    this.router.navigate([{ outlets: { primary: ['todos', this.id] } }], {
+
+    this.router.navigate([{ outlets: { posts: ['posts', this.id] } }], {
       relativeTo: this.ar.parent
     });
   }
 
   ngOnInit(): void {
     console.log('im in new-todo');
-    this.ar.params.subscribe(data => {
-      this.id = data['id'];
-      this.title = this.utils.getNextName(this.id);
-    });
+    this.ar.params.subscribe(data => (this.id = data['id']));
   }
 }

@@ -1,0 +1,30 @@
+.container {
+  height: 100%;
+  width: 100%;
+}
+.mat-toolbar {
+  font-family: "Share Tech", sans-serif;
+  display: flex;
+  justify-content: space-between;
+}
+.mat-form-field {
+  font-size: 16px;
+  font-family: "Baloo Paaji 2", cursive;
+  padding: 5px;
+}
+.mat-error {
+  font-family: "Baloo Paaji 2", cursive;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+button {
+  font-family: "Share Tech", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  border: 0.4px solid rgb(138, 128, 137);
+  margin: 2px;
+}

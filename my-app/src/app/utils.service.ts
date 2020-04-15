@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ThrowStmt } from '@angular/compiler';
-import { ActivatedRoute, Router } from '@angular/router';
 
 export interface User {
   id: number;

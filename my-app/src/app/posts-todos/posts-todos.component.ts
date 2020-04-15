@@ -21,8 +21,8 @@ export class PostsTodosComponent implements OnInit {
         [
           {
             outlets: {
-              primary: ['todos', 'Todos', this.id],
-              posts: ['todos', 'Posts', this.id]
+              primary: ['todos', this.id],
+              posts: ['posts', this.id]
             }
           }
         ],

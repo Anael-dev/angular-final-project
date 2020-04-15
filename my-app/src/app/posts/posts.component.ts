@@ -5,13 +5,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-todos',
-  templateUrl: './todos.component.html',
-  styleUrls: ['./todos.component.css']
+  selector: 'app-posts',
+  templateUrl: './posts.component.html',
+  styleUrls: ['./posts.component.css']
 })
-export class TodosComponent implements OnInit {
+export class PostsComponent implements OnInit {
   id: number;
-  todos: Observable<any[]>;
+  posts: Observable<any[]>;
 
   constructor(
     private utils: UtilsService,
@@ -22,7 +22,7 @@ export class TodosComponent implements OnInit {
   addData() {
     console.log('adding data');
 
-    this.router.navigate([{ outlets: { primary: ['new-todo', this.id] } }], {
+    this.router.navigate([{ outlets: { posts: ['new-post', this.id] } }], {
       relativeTo: this.ar.parent
     });
   }
@@ -33,7 +33,9 @@ export class TodosComponent implements OnInit {
     this.ar.params.subscribe(data => {
       this.id = data['id'];
       console.log(this.id);
-      this.todos = this.utils.getTasks(this.id);
+
+      this.posts = this.utils.getPosts(this.id);
+      console.log(this.posts);
     });
   }
 }
