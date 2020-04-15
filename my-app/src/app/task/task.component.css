@@ -1,10 +1,12 @@
-label,
-h3 {
+label {
   font-weight: 600;
+  padding: 10px;
 }
 
 .mat-list-item {
   font-family: "Baloo Paaji 2", cursive;
+  display: flex;
+  justify-content: space-between;
 }
 
 button {

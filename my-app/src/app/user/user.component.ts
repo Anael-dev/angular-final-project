@@ -3,7 +3,6 @@ import { UtilsService } from '../utils.service';
 import { Observable } from 'rxjs';
 import { map, every } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user',
@@ -17,7 +16,6 @@ export class UserComponent implements OnInit {
   updateAction: boolean = false;
   deleteAction: boolean = false;
   disableBtn: boolean = false;
-  // zipPattern = '^d{5}(?:[-s]d{4})?$';
 
   @Input() userData: any;
 
@@ -29,7 +27,7 @@ export class UserComponent implements OnInit {
         console.log('update action');
         console.log(f.value);
 
-        console.log(`from submiting in comp: ${this.userData.name}`);
+        console.log(`form submiting in comp user ${this.userData.name}`);
         this.utils.updateUser(this.userData.id, this.userData);
         this.updateAction = false;
       }
@@ -53,7 +51,7 @@ export class UserComponent implements OnInit {
     this.completed = this.todos.pipe(
       map(array => array.every(task => task.completed == true))
     );
-    console.log(`this.completed`);
+    console.log(`this.completed:`);
     console.log(this.completed);
   }
 }

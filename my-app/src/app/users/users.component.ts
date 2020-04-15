@@ -39,6 +39,7 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.usersArr = this.utils.users;
     this.filteredArr = this.usersArr;
+
     this.utils.loadAll();
   }
 }

@@ -27,9 +27,6 @@ export class PostsComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    // this.id = sessionStorage['id'];
-    // console.log('from todos');
-    // console.log(this.id);
     this.ar.params.subscribe(data => {
       this.id = data['id'];
       console.log(this.id);

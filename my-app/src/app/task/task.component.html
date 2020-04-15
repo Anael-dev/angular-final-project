@@ -1,10 +1,14 @@
 <mat-card>
   <mat-card-content>
     <mat-list>
-      <mat-list-item><label>Title:</label>{{ data.title }}</mat-list-item>
+      <mat-list-item
+        ><mat-icon>label_important </mat-icon><label>Title: </label
+        >{{ data.title }}</mat-list-item
+      >
       <mat-divider></mat-divider>
       <mat-list-item
-        ><label>Completed:</label>{{ data.completed }}</mat-list-item
+        ><mat-icon>attachment </mat-icon><label>Completed: </label
+        >{{ data.completed }}</mat-list-item
       >
       <mat-card-actions align="end">
         <button

@@ -25,8 +25,8 @@ export class UtilsService {
     posts: []
   };
   readonly users = this._users.asObservable();
-  readonly todos = this._users.asObservable();
-  readonly posts = this._users.asObservable();
+  readonly todos = this._todos.asObservable();
+  readonly posts = this._posts.asObservable();
 
   constructor(private http: HttpClient) {
     // this.getAllData(['users', 'todos', 'posts']);
@@ -39,7 +39,7 @@ export class UtilsService {
         console.log(this.dataStore.users);
         this._users.next(Object.assign({}, this.dataStore).users);
       },
-      error => console.log('Could not load users.')
+      error => console.log(`Could not load users.${error}`)
     );
   }
   removeUser(userId: number) {
@@ -54,7 +54,7 @@ export class UtilsService {
 
         this._users.next(Object.assign({}, this.dataStore).users);
       },
-      error => console.log('Could not delete user.')
+      error => console.log(`Could not delete user.${error.message}`)
     );
   }
   updateUser(userId: number, userData) {
@@ -73,7 +73,7 @@ export class UtilsService {
 
           this._users.next(Object.assign({}, this.dataStore).users);
         },
-        error => console.log('Could not update user.')
+        error => console.log(`Could not update user.${error.message}`)
       );
   }
   addNewUser(userData) {
@@ -94,7 +94,7 @@ export class UtilsService {
           console.log(this.dataStore.users[this.dataStore.users.length - 1]);
           this._users.next(Object.assign({}, this.dataStore).users);
         },
-        error => console.log('Could not load new todo.')
+        error => console.log(`Could not load new todo ${error.message}`)
       );
   }
   getNextName(currUserId) {
@@ -134,7 +134,7 @@ export class UtilsService {
           });
           this._todos.next(Object.assign({}, this.dataStore).todos);
         },
-        error => console.log('Could not update todo.')
+        error => console.log(`Could not update todo.${error.message}`)
       );
   }
   addNewTodo(userId, todoData) {
@@ -152,7 +152,7 @@ export class UtilsService {
           console.log(this.dataStore.todos[this.dataStore.todos.length - 1]);
           this._todos.next(Object.assign({}, this.dataStore).todos);
         },
-        error => console.log('Could not load new todo.')
+        error => console.log(`Could not load new tod${error.message}`)
       );
   }
 
@@ -167,7 +167,7 @@ export class UtilsService {
           console.log(this.dataStore.posts[this.dataStore.posts.length - 1]);
           this._posts.next(Object.assign({}, this.dataStore).posts);
         },
-        error => console.log('Could not load new todo.')
+        error => console.log(`Could not load new tod${error.message}`)
       );
   }
   loadTodos() {
@@ -183,7 +183,7 @@ export class UtilsService {
         console.log('filtered todos');
         this._todos.next(Object.assign({}, this.dataStore).todos);
       },
-      error => console.log('Could not load todos.')
+      error => console.log(`Could not load todos. ${error}`)
     );
   }
 
@@ -194,7 +194,7 @@ export class UtilsService {
         console.log(this.dataStore.posts);
         this._posts.next(Object.assign({}, this.dataStore).posts);
       },
-      error => console.log('Could not load posts.')
+      error => console.log(`Could not load posts.${error.message}`)
     );
   }
 

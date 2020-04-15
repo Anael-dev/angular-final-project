@@ -8,10 +8,6 @@
   display: flex;
   flex-direction: column;
 }
-a:link,
-a:visited {
-  text-decoration: none;
-}
 
 .mat-form-field {
   font-size: 16px;
@@ -22,8 +18,13 @@ a:visited {
 a {
   font-family: "Baloo Paaji 2", cursive;
 }
+
+a:link,
+a:visited,
 a {
+  text-decoration: none;
   line-height: 0.5;
+  color: rebeccapurple;
 }
 .mat-card {
   background-image: linear-gradient(to right bottom, #fff, #f1d8f5);

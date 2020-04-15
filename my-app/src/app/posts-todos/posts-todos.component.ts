@@ -13,9 +13,10 @@ export class PostsTodosComponent implements OnInit {
   ngOnInit(): void {
     this.ar.params.subscribe(data => {
       this.id = data.id;
-      sessionStorage['id'] = this.id;
       console.log('from post-todos');
-      console.log(sessionStorage['id']);
+
+      // sessionStorage['id'] = this.id;
+      // console.log(sessionStorage['id']);
 
       this.router.navigate(
         [
