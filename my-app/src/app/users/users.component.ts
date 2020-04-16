@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class UsersComponent implements OnInit {
   usersArr: Observable<User[]>;
-  filteredArr: any;
+  filteredArr: Observable<User[]>;
   searchType: boolean = false;
   constructor(private utils: UtilsService, private router: Router) {}
 

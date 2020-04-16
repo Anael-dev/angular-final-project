@@ -3,6 +3,10 @@ export class User {
     public id: number,
     public name: string,
     public email: string,
-    public address: Object
+    public address?: {
+      street: string;
+      city: string;
+      zipcode: string;
+    }
   ) {}
 }

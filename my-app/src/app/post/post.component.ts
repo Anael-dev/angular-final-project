@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UtilsService } from '../utils.service';
+import { Post } from '../post';
 
 @Component({
   selector: 'app-post',
@@ -7,9 +7,9 @@ import { UtilsService } from '../utils.service';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
-  @Input() data: any;
+  @Input() data: Post;
 
-  constructor(private utils: UtilsService) {}
+  constructor() {}
 
   ngOnInit(): void {}
 }

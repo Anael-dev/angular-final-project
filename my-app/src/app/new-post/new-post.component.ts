@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../utils.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-
+import { Post } from '../post';
 @Component({
   selector: 'app-new-post',
   templateUrl: './new-post.component.html',
@@ -23,12 +22,8 @@ export class NewPostComponent implements OnInit {
 
   submitForm(form) {
     if (this.addAction) {
-      const jsonTodo = {
-        userId: this.id,
-        title: form.value.title,
-        body: form.value.body
-      };
-      this.utils.addNewPost(this.id, jsonTodo);
+      const jsonPost = new Post(this.id, form.value.title, form.value.body);
+      this.utils.addNewPost(this.id, jsonPost);
     }
 
     this.router.navigate([{ outlets: { posts: ['posts', this.id] } }], {
@@ -37,7 +32,6 @@ export class NewPostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('im in new-todo');
     this.ar.params.subscribe(data => (this.id = data['id']));
   }
 }

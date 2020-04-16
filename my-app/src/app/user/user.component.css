@@ -48,6 +48,9 @@ a {
 }
 .borderGreen {
   border: 2px solid green;
+}
+.borderGreen-active {
+  border: 2px solid green;
   background-image: linear-gradient(
     to right bottom,
     hsla(114, 41%, 90%, 0.3),
@@ -55,6 +58,7 @@ a {
   );
   background-size: cover;
 }
+
 button {
   font-family: "Share Tech", sans-serif;
   font-weight: 600;

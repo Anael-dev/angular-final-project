@@ -15,9 +15,6 @@ export class PostsTodosComponent implements OnInit {
       this.id = data.id;
       console.log('from post-todos');
 
-      // sessionStorage['id'] = this.id;
-      // console.log(sessionStorage['id']);
-
       this.router.navigate(
         [
           {

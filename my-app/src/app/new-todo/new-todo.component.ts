@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../utils.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Todo } from '../todo';
 
 @Component({
   selector: 'app-new-todo',
@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 export class NewTodoComponent implements OnInit {
   id: number;
   title: string = '';
-  body: string = '';
   addAction: boolean;
   cancelAction: boolean;
 
@@ -23,11 +22,7 @@ export class NewTodoComponent implements OnInit {
 
   submitForm(form) {
     if (this.addAction) {
-      const jsonTodo = {
-        userId: this.id,
-        title: form.value.title,
-        completed: false
-      };
+      const jsonTodo = new Todo(this.id, form.value.title, false);
       this.utils.addNewTodo(this.id, jsonTodo);
     }
     this.router.navigate([{ outlets: { primary: ['todos', this.id] } }], {
@@ -36,7 +31,6 @@ export class NewTodoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('im in new-todo');
     this.ar.params.subscribe(data => {
       this.id = data['id'];
       this.title = this.utils.getNextName(this.id);

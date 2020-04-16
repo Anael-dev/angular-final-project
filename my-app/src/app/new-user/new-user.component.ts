@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../utils.service';
 import { Location } from '@angular/common';
+import { User } from '../user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-user',
@@ -8,7 +10,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./new-user.component.css']
 })
 export class NewUserComponent implements OnInit {
-  userData = {
+  userData: User = {
+    id: 0,
     name: '',
     email: '',
     address: {
@@ -19,7 +22,7 @@ export class NewUserComponent implements OnInit {
   };
   addAction: boolean;
 
-  constructor(private utils: UtilsService, private location: Location) {}
+  constructor(private utils: UtilsService, private router: Router) {}
 
   submitForm(form) {
     if (this.addAction) {
@@ -28,7 +31,7 @@ export class NewUserComponent implements OnInit {
       }
     }
 
-    this.location.back();
+    this.router.navigate(['']);
   }
   ngOnInit(): void {}
 }

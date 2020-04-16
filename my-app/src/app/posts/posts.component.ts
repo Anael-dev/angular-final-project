@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { UtilsService } from '../utils.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { Post } from '../post';
 
 @Component({
   selector: 'app-posts',
@@ -11,7 +12,7 @@ import { map } from 'rxjs/operators';
 })
 export class PostsComponent implements OnInit {
   id: number;
-  posts: Observable<any[]>;
+  posts: Observable<Post[]>;
 
   constructor(
     private utils: UtilsService,
@@ -29,10 +30,7 @@ export class PostsComponent implements OnInit {
   ngOnInit(): void {
     this.ar.params.subscribe(data => {
       this.id = data['id'];
-      console.log(this.id);
-
       this.posts = this.utils.getPosts(this.id);
-      console.log(this.posts);
     });
   }
 }

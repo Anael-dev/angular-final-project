@@ -19,6 +19,7 @@ import { PostsComponent } from './posts/posts.component';
 import { PostComponent } from './post/post.component';
 
 const appRoutes: Routes = [
+  { path: '', children: [] },
   { path: 'new-user', component: NewUserComponent },
   {
     path: 'posts-todos/:id',

@@ -13,14 +13,14 @@
         required
         minlength="2"
         name="title"
-        #task="ngModel"
+        #post="ngModel"
         [(ngModel)]="title"
       />
       <mat-hint align="end">Min 2 characters</mat-hint>
-      <mat-error *ngIf="!task.valid && task.dirty && task.errors.required">
+      <mat-error *ngIf="!post.valid && post.dirty && post.errors.required">
         Title is required
       </mat-error>
-      <mat-error *ngIf="!task.valid && task.dirty && task.errors.minlength">
+      <mat-error *ngIf="!post.valid && post.dirty && post.errors.minlength">
         Title must be at least 2 characters long
       </mat-error>
     </mat-form-field>

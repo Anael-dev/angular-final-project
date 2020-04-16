@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { UtilsService } from '../utils.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
+import { Todo } from '../todo';
 
 @Component({
   selector: 'app-todos',
@@ -11,7 +12,7 @@ import { map } from 'rxjs/operators';
 })
 export class TodosComponent implements OnInit {
   id: number;
-  todos: Observable<any[]>;
+  todos: Observable<Todo[]>;
 
   constructor(
     private utils: UtilsService,
@@ -27,12 +28,8 @@ export class TodosComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    // this.id = sessionStorage['id'];
-    // console.log('from todos');
-    // console.log(this.id);
     this.ar.params.subscribe(data => {
       this.id = data['id'];
-      console.log(this.id);
       this.todos = this.utils.getTasks(this.id);
     });
   }

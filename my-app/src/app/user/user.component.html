@@ -1,8 +1,9 @@
 <mat-card
   class="login-card"
   [class.selectedColor]="rla.isActive"
-  [class.borderGreen]="(completed | async) && rla.isActive"
   [class.borderRed]="!(completed | async)"
+  [class.borderGreen]="completed | async"
+  [class.borderGreen-active]="(completed | async) && rla.isActive"
 >
   <mat-card-header>
     <mat-icon>face</mat-icon>
