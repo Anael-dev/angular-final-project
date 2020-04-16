@@ -3,7 +3,9 @@
     <mat-list>
       <mat-list-item
         ><mat-icon>label_important </mat-icon><label>Title: </label
-        >{{ data.title }}</mat-list-item
+        ><span [class.delete]="data.completed">{{
+          data.title
+        }}</span></mat-list-item
       >
       <mat-divider></mat-divider>
       <mat-list-item
@@ -18,7 +20,7 @@
           (click)="completeTask()"
         >
           <mat-icon>check</mat-icon>
-          Completed
+          Mark Completed
         </button>
       </mat-card-actions>
     </mat-list>

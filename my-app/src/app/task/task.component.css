@@ -28,3 +28,6 @@ button {
   padding: 0px;
   margin: 0px;
 }
+.delete {
+  text-decoration: line-through;
+}
