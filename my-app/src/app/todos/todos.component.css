@@ -16,7 +16,6 @@ button {
 }
 .container {
   animation: moveInBottom 0.5s ease-out;
-  animation-delay: 0.5s;
 }
 @keyframes moveInBottom {
   0% {

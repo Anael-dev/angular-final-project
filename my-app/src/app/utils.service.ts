@@ -7,7 +7,7 @@ import { Todo } from './todo';
 import { Post } from './post';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UtilsService {
   private _users = new BehaviorSubject<User[]>([]);
@@ -18,7 +18,7 @@ export class UtilsService {
   dataStore: { users: User[]; todos: Todo[]; posts: Post[] } = {
     users: [],
     todos: [],
-    posts: []
+    posts: [],
   };
   readonly users = this._users.asObservable();
   readonly todos = this._todos.asObservable();
@@ -28,16 +28,16 @@ export class UtilsService {
 
   loadUsers() {
     this.http.get<User[]>(`${this.baseUrl}users`).subscribe(
-      data => {
+      (data) => {
         this.dataStore.users = data;
         this._users.next(Object.assign({}, this.dataStore).users);
       },
-      error => console.log(`Could not load users.${error}`)
+      (error) => console.log(`Could not load users.${error}`)
     );
   }
   removeUser(userId: number) {
     this.http.delete(`${this.baseUrl}users/${userId}`).subscribe(
-      response => {
+      (response) => {
         console.log('utils deleting');
         this.dataStore.users.forEach((user, index) => {
           if (user.id === userId) {
@@ -47,14 +47,14 @@ export class UtilsService {
 
         this._users.next(Object.assign({}, this.dataStore).users);
       },
-      error => console.log(`Could not delete user.${error.message}`)
+      (error) => console.log(`Could not delete user.${error.message}`)
     );
   }
   updateUser(userId: number, userData) {
     this.http
       .put<User>(`${this.baseUrl}users/${userId}`, JSON.stringify(userData))
       .subscribe(
-        response => {
+        (response) => {
           console.log('utils updating');
 
           this.dataStore.users.forEach((user, index) => {
@@ -66,7 +66,7 @@ export class UtilsService {
 
           this._users.next(Object.assign({}, this.dataStore).users);
         },
-        error => console.log(`Could not update user.${error.message}`)
+        (error) => console.log(`Could not update user.${error.message}`)
       );
   }
   addNewUser(userData: User) {
@@ -74,19 +74,19 @@ export class UtilsService {
     this.http
       .post<User>(`${this.baseUrl}users`, JSON.stringify(userData))
       .subscribe(
-        response => {
+        (response) => {
           console.log('adding new user:');
           console.log(response);
           // const data = { ...userData, id: response.id };
           const data = {
             ...userData,
-            id: Number(this.dataStore.users.length + 1)
+            id: Number(this.dataStore.users.length + 1),
           };
 
           this.dataStore.users.push(data);
           this._users.next(Object.assign({}, this.dataStore).users);
         },
-        error => console.log(`Could not load new todo ${error.message}`)
+        (error) => console.log(`Could not load new todo ${error.message}`)
       );
   }
   getNextName(currUserId: number) {
@@ -108,7 +108,7 @@ export class UtilsService {
     this.http
       .patch<Todo>(`${this.baseUrl}todos/${taskId}`, JSON.stringify(taskData))
       .subscribe(
-        response => {
+        (response) => {
           console.log('utils completing task' + '' + taskId);
           // console.log(response.id);
 
@@ -120,23 +120,23 @@ export class UtilsService {
           });
           this._todos.next(Object.assign({}, this.dataStore).todos);
         },
-        error => console.log(`Could not update todo.${error.message}`)
+        (error) => console.log(`Could not update todo.${error.message}`)
       );
   }
   addNewTodo(userId, todoData) {
     this.http
       .post<Todo>(`${this.baseUrl}todos`, JSON.stringify(todoData))
       .subscribe(
-        response => {
+        (response) => {
           console.log('adding task of user:' + '' + userId);
           const shapedData = {
             ...todoData,
-            id: this.dataStore.todos.length + 1
+            id: this.dataStore.todos.length + 1,
           }; //id:resonse.id
           this.dataStore.todos.push(shapedData);
           this._todos.next(Object.assign({}, this.dataStore).todos);
         },
-        error => console.log(`Could not load new todo ${error.message}`)
+        (error) => console.log(`Could not load new todo ${error.message}`)
       );
   }
 
@@ -144,17 +144,17 @@ export class UtilsService {
     this.http
       .post<Post>(`${this.baseUrl}posts`, JSON.stringify(postData))
       .subscribe(
-        response => {
+        (response) => {
           console.log('adding post of user:' + userId);
           this.dataStore.posts.push(postData);
           this._posts.next(Object.assign({}, this.dataStore).posts);
         },
-        error => console.log(`Could not load new post ${error.message}`)
+        (error) => console.log(`Could not load new post ${error.message}`)
       );
   }
   loadTodos() {
     this.http.get<Todo[]>(`${this.baseUrl}todos`).subscribe(
-      data => {
+      (data) => {
         // data.forEach(x => {
         //   if (x.userId <= 5) {
         //     this.dataStore.todos.push(x);
@@ -163,17 +163,17 @@ export class UtilsService {
         this.dataStore.todos = data;
         this._todos.next(Object.assign({}, this.dataStore).todos);
       },
-      error => console.log(`Could not load todos. ${error}`)
+      (error) => console.log(`Could not load todos. ${error}`)
     );
   }
 
   loadPosts() {
     this.http.get<Post[]>(`${this.baseUrl}posts`).subscribe(
-      data => {
+      (data) => {
         this.dataStore.posts = data;
         this._posts.next(Object.assign({}, this.dataStore).posts);
       },
-      error => console.log(`Could not load posts.${error.message}`)
+      (error) => console.log(`Could not load posts.${error.message}`)
     );
   }
 
@@ -185,14 +185,14 @@ export class UtilsService {
 
   getPosts(id: number) {
     const userPosts = this._posts.pipe(
-      map(array => array.filter(post => post.userId == id))
+      map((array) => array.filter((post) => post.userId == id))
     );
     return userPosts;
   }
 
   getTasks(id: number) {
     const userTasks = this._todos.pipe(
-      map(array => array.filter(todo => todo.userId == id))
+      map((array) => array.filter((todo) => todo.userId == id))
     );
     return userTasks;
   }
