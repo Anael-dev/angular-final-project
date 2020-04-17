@@ -1,8 +1,3 @@
-/* .transform-actions {
-  display: flex;
-  flex-direction: row-reverse;
-} */
-
 .basic-data {
   color: rebeccapurple;
   display: flex;
@@ -33,6 +28,7 @@ a {
   width: 100%;
   min-width: 300px;
   max-width: 300px;
+  animation: moveInLeft 0.8s ease-out;
 }
 
 .selectedColor {
@@ -69,4 +65,17 @@ button {
 .mat-card-actions {
   display: flex;
   justify-content: space-between;
+}
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-5rem);
+  }
+  80% {
+    transform: translateX(0.3rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
 }

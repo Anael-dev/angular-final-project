@@ -9,7 +9,7 @@ import { User } from '../user';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
   todos: Observable<Todo[]>;
@@ -44,7 +44,7 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.todos = this.utils.getTasks(this.userData.id);
     this.completed = this.todos.pipe(
-      map(array => array.every(task => task.completed == true))
+      map((array) => array.every((task) => task.completed == true))
     );
   }
 }

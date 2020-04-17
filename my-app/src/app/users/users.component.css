@@ -6,7 +6,6 @@
   box-sizing: border-box;
 }
 .users-container {
-  /* border: 2px solid rebeccapurple; */
   min-width: 350px;
   max-width: 40vw;
   padding: 2%;
@@ -38,6 +37,7 @@ button {
   width: 80%;
   display: flex;
   justify-content: space-between;
+  animation: moveInRight 1s ease-out;
 }
 .noMatch {
   position: relative;
@@ -50,4 +50,18 @@ button {
 .mat-icon {
   font-size: 30px;
   position: absolute;
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(5rem);
+  }
+  80% {
+    transform: translateX(-0.3rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
 }
