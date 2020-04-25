@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs';
 import { UtilsService } from '../utils.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -8,9 +9,10 @@ import { Todo } from '../todo';
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
-  styleUrls: ['./todos.component.css']
+  styleUrls: ['./todos.component.css'],
 })
-export class TodosComponent implements OnInit {
+export class TodosComponent implements OnInit, OnDestroy {
+  sub: Subscription;
   id: number;
   todos: Observable<Todo[]>;
 
@@ -24,13 +26,16 @@ export class TodosComponent implements OnInit {
     console.log('adding data');
 
     this.router.navigate([{ outlets: { primary: ['new-todo', this.id] } }], {
-      relativeTo: this.ar.parent
+      relativeTo: this.ar.parent,
     });
   }
   ngOnInit(): void {
-    this.ar.params.subscribe(data => {
+    this.sub = this.ar.params.subscribe((data) => {
       this.id = data['id'];
       this.todos = this.utils.getTasks(this.id);
     });
+  }
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }

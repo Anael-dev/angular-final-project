@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UtilsService } from '../utils.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from '../post';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-new-post',
   templateUrl: './new-post.component.html',
-  styleUrls: ['./new-post.component.css']
+  styleUrls: ['./new-post.component.css'],
 })
-export class NewPostComponent implements OnInit {
+export class NewPostComponent implements OnInit, OnDestroy {
+  sub: Subscription;
   id: number;
   title: string = '';
   body: string = '';
@@ -27,11 +29,15 @@ export class NewPostComponent implements OnInit {
     }
 
     this.router.navigate([{ outlets: { posts: ['posts', this.id] } }], {
-      relativeTo: this.ar.parent
+      relativeTo: this.ar.parent,
     });
   }
 
   ngOnInit(): void {
-    this.ar.params.subscribe(data => (this.id = data['id']));
+    this.sub = this.ar.params.subscribe((data) => (this.id = data['id']));
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }
